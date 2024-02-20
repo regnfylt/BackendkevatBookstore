@@ -1,5 +1,6 @@
 package com.example.demo.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,26 +12,27 @@ public class Book {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
-    private String nimi;
-    private String kirjailija;
-    private int vuosi;
+    private String title;
+    private String author;
+    @Column(name="publishing_year")
+    private int year;
     private String isbn;
-    private int hinta;
+    private int price;
     
     public Book() {}
     
-    public Book(Long id, String nimi, String kirjailija, int vuosi, String isbn, int hinta) {
+    public Book(Long id, String title, String author, int year, String isbn, int price) {
         super();
         this.id = id;
-        this.nimi = nimi;
-        this.kirjailija = kirjailija;
-        this.vuosi = vuosi;
+        this.title = title;
+        this.author = author;
+        this.year = year;
         this.isbn = isbn;
-        this.hinta = hinta;
+        this.price = price;
     }
     
-    public String getNimi() {
-        return nimi;
+    public String gettitle() {
+        return title;
     }
     
     public Long getId() {
@@ -41,32 +43,32 @@ public class Book {
         this.id = id;
     }
     
-    public int getHinta() {
-        return hinta;
+    public int getprice() {
+        return price;
     }
     
-    public void setHinta(int hinta) {
-        this.hinta = hinta;
+    public void setprice(int price) {
+        this.price = price;
     }
     
-    public void setNimi(String nimi) {
-        this.nimi = nimi;
+    public void settitle(String title) {
+        this.title = title;
     }
     
-    public String getKirjailija() {
-        return kirjailija;
+    public String getauthor() {
+        return author;
     }
     
-    public void setKirjailija(String kirjailija) {
-        this.kirjailija = kirjailija;
+    public void setauthor(String author) {
+        this.author = author;
     }
     
-    public int getVuosi() {
-        return vuosi;
+    public int getyear() {
+        return year;
     }
     
-    public void setVuosi(int vuosi) {
-        this.vuosi = vuosi;
+    public void setyear(int year) {
+        this.year = year;
     }
     
     public String getIsbn() {
