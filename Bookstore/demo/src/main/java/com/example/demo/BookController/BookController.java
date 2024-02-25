@@ -1,6 +1,9 @@
 package com.example.demo.bookcontroller;
 
 import org.springframework.ui.Model;
+
+import java.util.Optional;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,6 +14,7 @@ import com.example.demo.domain.Book;
 import com.example.demo.domain.BookRepository;
 
 import io.micrometer.common.lang.NonNull;
+
 
 
 
@@ -50,6 +54,25 @@ public class BookController {
             bookRepository.deleteById(id);
         return "redirect:/booklist";
     }
+
+    @SuppressWarnings("null")
+    @GetMapping("/editbook/{id}")
+    public String showEditBookForm(@PathVariable Long id, Model model) {
+        Optional<Book> optionalBook = bookRepository.findById(id);
+        if (optionalBook.isPresent()) {
+            model.addAttribute("book", optionalBook.get());
+            return "editbook";
+        } else {
+            return "redirect:/booklist";
+        }
+    }
+
+    @PostMapping("/updatebook")
+    public String updateBook(@ModelAttribute Book updatedBook) {
+        bookRepository.save(updatedBook);
+        return "redirect:/booklist";
+    }
+    
     
     }
     
