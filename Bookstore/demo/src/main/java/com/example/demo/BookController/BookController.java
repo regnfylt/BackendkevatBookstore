@@ -1,8 +1,9 @@
-package com.example.demo.BookController;
+package com.example.demo.bookcontroller;
 
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+
 
 import com.example.demo.domain.Book;
 import com.example.demo.domain.BookRepository;
@@ -10,7 +11,7 @@ import com.example.demo.domain.BookRepository;
 
 
 
-@ControllerAdvice
+@Controller
 public class BookController {
 
     private final BookRepository bookRepository;
@@ -21,9 +22,10 @@ public class BookController {
 
     @GetMapping("/booklist")
     public String showBookList(Model model) {
-        Iterable<Book> books = bookRepository.findAll(); // Fetch all books from the database
-        model.addAttribute("books", books); // Add books to the model
-        return "booklist"; // Return the name of the Thymeleaf template
+        Iterable<Book> books = bookRepository.findAll();
+        model.addAttribute("books", books);
+        return "booklist";
     }
+    
     }
     
