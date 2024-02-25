@@ -2,8 +2,10 @@ package com.example.demo.BookController;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import com.example.demo.domain.Book;
+import com.example.demo.domain.BookRepository;
 
 
 
@@ -11,9 +13,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @ControllerAdvice
 public class BookController {
 
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public String showIndex(Model model){
-        System.out.println("Index endpoint");
-        return "index";
+    private final BookRepository bookRepository;
+
+    public BookController(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
+    }
+
+    @GetMapping("/booklist")
+    public String showBookList(Model model) {
+        Iterable<Book> books = bookRepository.findAll(); // Fetch all books from the database
+        model.addAttribute("books", books); // Add books to the model
+        return "booklist"; // Return the name of the Thymeleaf template
     }
     }
+    
