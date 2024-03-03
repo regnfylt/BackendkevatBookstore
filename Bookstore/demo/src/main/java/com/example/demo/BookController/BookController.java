@@ -35,7 +35,7 @@ public class BookController {
         return "booklist";
     }
     @GetMapping("/addbook")
-    public String showAddBookForm(Model model) {
+    public String AddBookForm(Model model) {
         model.addAttribute("book", new Book());
         return "addbook";
     }
@@ -57,16 +57,17 @@ public class BookController {
 
     @SuppressWarnings("null")
     @GetMapping("/editbook/{id}")
-    public String showEditBookForm(@PathVariable Long id, Model model) {
+    public String EditBookForm(@PathVariable Long id, Model model) {
         Optional<Book> optionalBook = bookRepository.findById(id);
         if (optionalBook.isPresent()) {
             model.addAttribute("book", optionalBook.get());
-            return "editbook";
+            return "editbook";  
         } else {
             return "redirect:/booklist";
         }
     }
 
+    
     @PostMapping("/updatebook")
     public String updateBook(@ModelAttribute Book updatedBook) {
         bookRepository.save(updatedBook);
