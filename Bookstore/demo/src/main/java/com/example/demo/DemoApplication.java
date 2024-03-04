@@ -17,35 +17,26 @@ public class DemoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 	}
-	 @Bean
 
-    public CommandLineRunner initBookData(BookRepository bookRepository) {
+    @Bean
+    public CommandLineRunner initData(BookRepository bookRepository, CategoryRepository categoryRepository) {
         return (args) -> {
-            Book a  = new Book("Harry Potter and the Sorcerer's Stone", "J.K. Rowling", 1997, "9780590353427", 13);
-            Book b  = new Book("Harry Potter and the Chamber of Secrets", "J.K. Rowling", 1998, " 9780439064866", 15);
+            Category scifi = new Category("Scifi");
+            Category comic = new Category("Comic");
+            Category thriller = new Category("Thriller");
+            Category fantasy = new Category("Fantasy");
+
+            categoryRepository.save(scifi);
+            categoryRepository.save(comic);
+            categoryRepository.save(thriller);
+            categoryRepository.save(fantasy);
+
+            Book a = new Book("Harry Potter and the Sorcerer's Stone", "J.K. Rowling", 1997, "9780590353427", 13, fantasy);
+            Book b = new Book("Harry Potter and the Chamber of Secrets", "J.K. Rowling", 1998, "9780439064866", 15, fantasy);
 
             bookRepository.save(a);
             bookRepository.save(b);
-
-            System.out.println(a);
-            System.out.println(b);
         };
-	}
+    }
 
-     @Bean
-    public CommandLineRunner initCategoryData(CategoryRepository categoryRepository) {
-        return (args) -> {
-            Category a = new Category("Scifi");
-            Category b = new Category("Comic");
-            Category c = new Category("Thriller");
-
-            categoryRepository.save(a);
-            categoryRepository.save(b);
-            categoryRepository.save(c);
-
-            System.out.println(a);
-            System.out.println(b);
-            System.out.println(c);
-        };
-	}
 }

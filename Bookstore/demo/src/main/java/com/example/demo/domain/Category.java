@@ -1,10 +1,13 @@
 package com.example.demo.domain;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Category {
@@ -15,6 +18,9 @@ public class Category {
     private Long categoryId;
 
     private String name;
+
+    @OneToMany(mappedBy = "category")
+    private List<Book> books;
 
     public Category() {
     }
@@ -38,8 +44,12 @@ public class Category {
     public void setName(String name) {
         this.name = name;
     }
-    @Override
-    public String toString() {
-        return "Category [categoryId=" + categoryId + ", name=" + name + "]";
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 }
