@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,10 +18,6 @@ import com.example.demo.domain.CategoryRepository;
 
 import io.micrometer.common.lang.NonNull;
 
-
-
-
-
 @Controller
 public class BookController {
 
@@ -30,17 +27,17 @@ public class BookController {
     @Autowired
     private CategoryRepository categoryRepository;
 
-
     @GetMapping("/booklist")
     public String showBookList(Model model) {
         Iterable<Book> books = bookRepository.findAll();
         model.addAttribute("books", books);
         return "booklist";
     }
+
     @GetMapping("/addbook")
     public String AddBookForm(Model model) {
         model.addAttribute("book", new Book());
-        model.addAttribute("categories",categoryRepository.findAll());
+        model.addAttribute("categories", categoryRepository.findAll());
         return "addbook";
     }
 
@@ -53,31 +50,30 @@ public class BookController {
 
     @SuppressWarnings("null")
     @GetMapping("/deletebook/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String deleteBook(@PathVariable @NonNull Long id) {
-                bookRepository.deleteById(id);
+        bookRepository.deleteById(id);
         return "redirect:/booklist";
     }
 
     @SuppressWarnings("null")
     @GetMapping("/editbook/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String EditBookForm(@PathVariable Long id, Model model) {
         Optional<Book> optionalBook = bookRepository.findById(id);
         if (optionalBook.isPresent()) {
             model.addAttribute("book", optionalBook.get());
-            model.addAttribute("categories",categoryRepository.findAll());
-            return "editbook";  
+            model.addAttribute("categories", categoryRepository.findAll());
+            return "editbook";
         } else {
             return "redirect:/booklist";
         }
     }
 
-    
     @PostMapping("/updatebook")
     public String updateBook(@ModelAttribute Book updatedBook) {
         bookRepository.save(updatedBook);
         return "redirect:/booklist";
     }
-    
-    
-    }
-    
+
+}

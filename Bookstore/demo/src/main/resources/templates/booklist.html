@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <title>kirjakauppa</title>
@@ -7,7 +7,6 @@
 <body>
 
 <h1>Booklist</h1>
-
 <table border="1">
     <thead>
         <tr>
@@ -26,8 +25,9 @@
             <td th:text="${book.year}"></td>
             <td th:text="${book.category.name}"></td>
             <td>
-                <a th:href="@{'/deletebook/' + ${book.id}}">Delete</a>
-                <a th:href="@{'/editbook/' + ${book.id}}">Edit</a>
+                <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{'/deletebook/' + ${book.id}}">Delete</a></td>
+                
+                <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{'/editbook/' + ${book.id}}">Edit</a></td>
             </td>
         </tr>
     </tbody>
@@ -36,6 +36,12 @@
 <a href="/addbook">Add Book</a>
 
 <a href="/categorylist">To categories</a>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+   </form>
+
+   <h1>Hello <span sec:authentication="name"></span>!</h1>
 
 </body>
 </html>
