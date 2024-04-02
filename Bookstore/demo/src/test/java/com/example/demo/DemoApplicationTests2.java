@@ -21,17 +21,8 @@ import com.example.demo.domain.CategoryRepository;
 import com.example.demo.domain.User;
 import com.example.demo.domain.UserRepository;
 
-@SpringBootTest
-class DemoApplicationTests {
-
-	@Autowired
-	private BookController controllerbook;
-
-	@Autowired
-	private BookRestController controllerbookrest;
-
-	@Autowired
-	private CategoryController controllercategory;
+@DataJpaTest
+class DemoApplicationTests2 {
 
 	@Autowired
 	private BookRepository repositorybook;
@@ -42,21 +33,6 @@ class DemoApplicationTests {
 	@Autowired
 	private UserRepository repositoryuser;
 
-	@Test
-	public void contextLoads() throws Exception {
-		assertThat(controllerbook).isNotNull();
-	}
-
-	@Test
-	public void contextLoads2() throws Exception {
-		assertThat(controllerbookrest).isNotNull();
-	}
-
-	@Test
-	public void contextLoads3() throws Exception {
-		assertThat(controllercategory).isNotNull();
-	}
-	
 	@Test
 	 public void findByAuthorShouldReturnBook() {
 		List<Book> books = repositorybook.findByAuthor("J.K. Rowling");
