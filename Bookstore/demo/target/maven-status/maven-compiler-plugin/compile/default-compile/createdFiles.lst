@@ -1,0 +1,12 @@
+com\example\demo\DemoApplication.class
+com\example\demo\categorycontroller\CategoryController.class
+com\example\demo\domain\CategoryRepository.class
+com\example\demo\bookrestcontroller\BookRestController.class
+com\example\demo\domain\Book.class
+com\example\demo\bookcontroller\UserDetailService.class
+com\example\demo\WebSecurityConfig.class
+com\example\demo\bookcontroller\BookController.class
+com\example\demo\domain\User.class
+com\example\demo\domain\UserRepository.class
+com\example\demo\domain\Category.class
+com\example\demo\domain\BookRepository.class

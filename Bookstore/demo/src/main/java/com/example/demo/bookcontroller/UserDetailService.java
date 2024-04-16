@@ -16,6 +16,7 @@ import com.example.demo.domain.UserRepository;
 public class UserDetailService implements UserDetailsService {
     private final UserRepository repository;
 
+    
     @Autowired
     public UserDetailService(UserRepository userRepository) {
         this.repository = userRepository;
